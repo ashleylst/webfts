@@ -180,7 +180,7 @@ function joinURLs($component, ...$components) {
         }
         $url .= $component;
     }
-    $url=substr_replace($url ,"",-1);
+    #$url=substr_replace($url ,"",-1);
     return $url;
 }
 ?>
