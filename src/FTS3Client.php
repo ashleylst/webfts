@@ -131,6 +131,7 @@ class FTS3Client {
     private function curl_init($path, $headers = array()) {
         $url = $this->base_url . '/' . $path;
         $c = curl_init($url);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0); 
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
         if (isset($this->access_token)) {
             curl_setopt($c, CURLOPT_HTTPHEADER,
@@ -172,14 +173,14 @@ class FTS3Client {
 }
 
 function joinURLs($component, ...$components) {
-    $url = $component;
+    $url = $component; 
     foreach ($components as $component) {
         if (!empty($url) && $url[-1] != '/' && $component[0] != '/') {
             $url .= '/';
         }
         $url .= $component;
     }
-
+    $url=substr_replace($url ,"",-1);
     return $url;
 }
 ?>

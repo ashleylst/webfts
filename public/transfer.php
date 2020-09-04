@@ -40,20 +40,6 @@ $( document ).ready(function() {
 	                 description: "Grid Storage Element",
 	                 imageSrc: "img/grid_storage.png"
 	             },
-	             {
-	                 text: "Dropbox",
-	                 value: 3,
-	                 selected: false,
-	                 description: "Dropbox",
-	                 imageSrc: "img/Dropbox-icon.png"
-	             },
-	             {
-	                 text: "Local",
-	                 value: 4,
-	                 selected: false,
-	                 description: "Upload files from local storage",
-	                 imageSrc: "img/upload-icon.png"
-	             },
 	         ];
 	         
 	//workaround to make the session loading work
@@ -82,13 +68,6 @@ $( document ).ready(function() {
 		        description: "Grid Storage Element",
 		        imageSrc: "img/grid_storage.png"
 		     },
-		     {
-                      	text: "CERNBox",
-                       	value: 2,
-                       	selected: false,
-                       	description: "CERNBox Service (Beta)",
-                       	imageSrc: "img/CERNBox-icon.png"
-                      },
 		        ];
 		
 	$('#rightStorageSelect').ddslick({
@@ -107,7 +86,6 @@ $( document ).ready(function() {
 							sessionStorage.clientCN=data.substring(3).trim();
 						}
 						else {
-							alert("WebFTS could not retrieve your credentials to access CERNBox, are you a CERNBOX user?");
 							return;
 						}
                     			},
@@ -199,12 +177,12 @@ $( document ).ready(function() {
 });
 
 
-$('#lfcendpoint').popover({
-    content: $('#lfcendpoint').val(),
-    placement: 'auto',
-    html: true,
-    trigger : 'hover'
-});
+//$('#lfcendpoint').popover({
+//    content: $('#lfcendpoint').val(),
+//    placement: 'auto',
+//    html: true,
+//    trigger : 'hover'
+//});
 
 
 $("#leftEndpointContentTable tbody").on("click", function(e){
@@ -290,7 +268,7 @@ function refreshFiles() {
 
 
 $('#overwrite').popover();
-$('#lfcregistration').popover();
+//$('#lfcregistration').popover();
 $('#checksum').popover();
 
 </script>
@@ -569,28 +547,30 @@ $('#checksum').popover();
 						<p class="text-left">
 		      				<span>
 		      			  	<input id="checksum" type="checkbox" onclick="saveCheckboxState()"  data-content="If activated tells the system to compare the file checksums after the transfer"
-								rel="popover" data-placement="center" data-trigger="hover" ><b>Compare Checksums</b></input>
+								rel="popover" data-placement="center" data-trigger="hover" ><b> Compare Checksums</b></input>
 		      				</span>	
 		      				</p>
 					  </div>
 					</td>
 				</tr>
 				<tr>
-					<td>
-					  <div> 
-						<p class="text-left">
-				      		<span >
-				        		<input id="lfcregistration" type="checkbox" onclick="saveCheckboxState()" data-content="If activated tells the system to perform the registration on the specified LFC at the end of the transfer" rel="popover" data-placement="center" data-trigger="hover"><b> LFC Registration </b></input>
-				      		</span>
-						</p>
-						
-				      		<div id="lfcendpointshow">
-				     		<span>
-				      			<input id="lfcendpoint" type="text" class="form-control">
-				       		</span>
-				      		</div>
-					 <div>	
-				    </td>
+                                       <td>
+                                         <div> 
+                                               <p class="text-left">
+                                               <span >
+                                                       <input id="lfcregistration" type="checkbox" onclick="saveCheckboxState()" data-content="If activated tells the system to perform the registration on
+				
+								rel="popover" data-placement="center" data-trigger="hover" ><b> LFC registration</b></input>
+                                               </span>
+                                               </p>
+                                               
+                                               <div id="lfcendpointshow">
+                                               <span>
+                                                       <input id="lfcendpoint" type="text" class="form-control">
+                                               </span>
+                                               </div>
+                                        <div>  
+                                   </td>
 			    </tr>
 			    </table>
 		    </div>
