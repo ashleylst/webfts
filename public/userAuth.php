@@ -19,7 +19,6 @@ if (isset($_SESSION['oidc'])) {
     if (!$logged_in && $_SESSION['oidc']->getRefreshToken() != null) {
         error_log("OIDC: Refreshing token for " . $_SESSION['oidc']->getVerifiedClaims('sub'));
         $rsp = $_SESSION['oidc']->refreshToken($_SESSION['oidc']->getRefreshToken());
-        error_log(print_r($rsp));
 
         $_SESSION['oidc']->setAccessToken($rsp->access_token);
 
