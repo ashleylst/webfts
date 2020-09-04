@@ -123,13 +123,6 @@ else if ( (nameOffset=nAgt.lastIndexOf(' ')+1) <
 <script src="js/ftsHelper.js"></script>
 <script>
 $( document ).ready(function() {
-	$('#divRss').FeedEk({
-    		FeedUrl : 'http://fts3-service.web.cern.ch/rss.xml',
-    		MaxCount : 3,
-    		ShowDesc : false,
-    		ShowPubDate: true,
-    		TitleLinkTarget: '_blank',
-  	});
 
         if(!sessionStorage.ftsRestEndpoint)
                 getConfig();
@@ -202,7 +195,7 @@ $( document ).ready(function() {
 									<div id="divRss" class="jumbotron-fluid" ></div>
 									
 				    				<div class='jumbotron-fluid' id='readMore'>
-									<a class="btn btn-info btn-responsive"  onclick="window.open(this.href,'_blank');return false;" href="http://fts.web.cern.ch/sites/fts.web.cern.ch/themes/fts-webpage/releases-jekyll/releases/index.html"><strong>Read more...</strong></a>
+									<a class="btn btn-info btn-responsive"  onclick="window.open(this.href,'_blank');return false;" href="https://fts.web.cern.ch/fts/"><strong>Read more...</strong></a>
 								</div>
 								<br/>
 								<div>
