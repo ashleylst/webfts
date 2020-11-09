@@ -25,14 +25,20 @@ $oidc = $_SESSION['oidc'];
 
 $oidc->addScope('openid');
 $oidc->addScope('offline_access');
+//TODO find a better way to add token-exchange for helmhoz AAI
+if ($provider['issuer'] == 'https://login.helmholtz.de/oauth2') {
+    $oidc->addScope('token-exchange');
+}
 if (isset($config['show_profile_name']) && $config['show_profile_name']) {
     $oidc->addScope('profile');
 }
 
 // IAM says it supports client_secret_basic, but it actually doesn't
-$oidc->providerConfigParam(array(
-    'token_endpoint_auth_methods_supported' => ['client_secret_post']
-));
+if ($provider['issuer'] != 'https://login.helmholtz.de/oauth2') {
+    $oidc->providerConfigParam(array(
+       'token_endpoint_auth_methods_supported' => ['client_secret_post']
+    ));
+}
 
 try {
     $oidc->authenticate();  // This (might) redirect to IDP

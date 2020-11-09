@@ -275,7 +275,7 @@ function getDelegationID(fieldName, delegationNeeded){
       isDelegated(data1.delegation_id, delegationNeeded);
     },
     error : function(jqXHR, textStatus, errorThrown) {
-      showError(jqXHR, textStatus, errorThrown, "Error connecting to the FTS server to obtain the user credentials. Check if you have installed a valid copy of the CERN ROOT CA certificate."+ supportText);
+      showError(jqXHR, textStatus, errorThrown, "Error connecting to the FTS server to obtain the user credentials."+ supportText);
     }
   });
 }
@@ -406,6 +406,7 @@ function getVOMSCredentials(delegationID, user_vo){
 function getEndpointContent(endpointInput, container, containerTable, indicator, stateText, filter){
     encodedEndpoint = encodeURIComponent(($('#' + endpointInput).val()).trim())
     urlEndp = "/api/fts3/dir&surl=" + encodedEndpoint;
+    console.log(encodedEndpoint);
   $.support.cors = true;
 	$.ajax({
 		url : urlEndp,

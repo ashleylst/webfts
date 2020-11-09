@@ -47,7 +47,6 @@ try {
         case 'dir':
             $base = opt($INPUT['base'], $INPUT['surl']);
             $dir_name = opt($INPUT['dir_name']);
-
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':
                     $result = $fts->dm_list($base, $dir_name);

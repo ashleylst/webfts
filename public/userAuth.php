@@ -14,14 +14,14 @@ if (isset($_SESSION['oidc'])) {
     $logged_in = $_SESSION['oidc']->getAccessToken() != null
               && ($_SESSION['user_info'] = $_SESSION['oidc']->requestUserInfo()) != null
               && $_SESSION['user_info']->sub != null;
-
+ 
+    error_log($_SESSION['oidc']->getAccessToken());
     // No? -> Try Refresh!
     if (!$logged_in && $_SESSION['oidc']->getRefreshToken() != null) {
         error_log("OIDC: Refreshing token for " . $_SESSION['oidc']->getVerifiedClaims('sub'));
         $rsp = $_SESSION['oidc']->refreshToken($_SESSION['oidc']->getRefreshToken());
 
         $_SESSION['oidc']->setAccessToken($rsp->access_token);
-
         // Now valid?
         $logged_in = $_SESSION['oidc']->getAccessToken() != null
                   && ($_SESSION['user_info'] = $_SESSION['oidc']->requestUserInfo()) != null
