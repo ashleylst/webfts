@@ -46,7 +46,7 @@
 <!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
 <script> 
 	$( document ).ready(function() {
-                if(!sessionStorage.ftsRestEndpoint)
+                if(!sessionStorage.ftsRestEndpoint && !sessionStorage.jobsToList)
                         getConfig();
         });
 

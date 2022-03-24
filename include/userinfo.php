@@ -10,6 +10,8 @@ if (isset($_SESSION['user_info']->given_name) && $_SESSION['user_info']->family_
     $name = $_SESSION['user_info']->given_name
           . " "
           . $_SESSION['user_info']->family_name;
+} elseif (isset($_SESSION['user_info']->given_name)) {
+    $name = $_SESSION['user_info']->given_name;
 } else {
     $name = $_SESSION['oidc']->getVerifiedClaims('sub');
 }

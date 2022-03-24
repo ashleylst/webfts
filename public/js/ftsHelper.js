@@ -1,15 +1,15 @@
 var supportText = "Please, try again and contact support if the error persists";
 
 function getConfig(){
-  $.get("/config.php", function(data) {
-        sessionStorage.ftsRestEndpoint=data.fts_address;
+    $.get( "config.php", function(data) {
+        sessionStorage.ftsRestEndpoint=data.fts_url;
         sessionStorage.lmtWebsocketEndpoint=data.lmt.websocket_endpoint;
         sessionStorage.lmtHealthCheckEndpoint=data.lmt.health_check_endpoint;
         sessionStorage.jobsToList=data.job_to_list;
         sessionStorage.endpointsUrl=data.endpoint_list_url;
         sessionStorage.proxyCertHours=data.proxy_cert_hours;
         sessionStorage.cernboxBaseUrl=data.cernbox_base_url;
-	});
+    });
 }
 
 function showError(jqXHR, textStatus, errorThrown, message) {
@@ -403,14 +403,22 @@ function getVOMSCredentials(delegationID, user_vo){
   });
 }
 
-function getEndpointContent(endpointInput, container, containerTable, indicator, stateText, filter){
-    encodedEndpoint = encodeURIComponent(($('#' + endpointInput).val()).trim())
-    urlEndp = "/api/fts3/dir&surl=" + encodedEndpoint;
+function getEndpointContent(endpointInput, container, containerTable, indicator, stateText, filter, projectId, OSToken){
+    encodedEndpoint = encodeURIComponent(($('#' + endpointInput).val()).trim());
+    isSwift = $('#'+ endpointInput).val().startsWith("swift");
+    if(isSwift) {
+        token = ($('#' + OSToken).val()).trim();
+        urlEndp = "/api/fts3/cs&surl=" + encodedEndpoint + "&osprojectid=" + ($('#' + projectId).val()).trim();
+    }
+    else {
+        urlEndp = "/api/fts3/dir&surl=" + encodedEndpoint;
+    }
     console.log(encodedEndpoint);
   $.support.cors = true;
 	$.ajax({
 		url : urlEndp,
 		type : "GET",
+		headers: {"X-Auth-Token": token},
 		dataType : 'json',
 		xhrFields : {
 			withCredentials : true
@@ -421,7 +429,12 @@ function getEndpointContent(endpointInput, container, containerTable, indicator,
                         Object.keys(data2).sort().forEach(function(key) {
                                 ordered[key] = data2[key];
                         });
-			loadFolder(endpointInput, container, containerTable, ordered, indicator, stateText, filter);			
+            if(isSwift){
+                loadSwiftFolder(endpointInput, container, containerTable, ordered, indicator, stateText, filter, projectId, OSToken);
+            }
+            else {
+                loadFolder(endpointInput, container, containerTable, ordered, indicator, stateText, filter);
+            }
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			showError(jqXHR, textStatus, errorThrown, "Error connecting to the endpoint: it is not available, the folder does not exist or it has been selected a wrong protocol or address. "  + supportText);

@@ -63,6 +63,17 @@ try {
             }
             break;
 
+        case 'cs':
+            switch ($_SERVER['REQUEST_METHOD']) {
+                case 'GET':
+                    $result = $fts->swift_list($INPUT['surl'], $INPUT['osprojectid'], $_SERVER['HTTP_X_AUTH_TOKEN']);
+                    break;
+                default:
+                    $error = 405;
+                    break;
+            }
+            break;
+
         case 'jobs':
             switch ($_SERVER['REQUEST_METHOD']) {
                 case 'GET':

@@ -70,6 +70,18 @@ class FTS3Client {
         ));
     }
 
+    public function swift_list($surl, $osprojectid, $ostoken) {
+        if($ostoken){
+            return $this->get("cs/remote_content/swift", array(
+                "surl" => joinURLs($surl),
+                "projectid" => joinURLs($osprojectid),
+            ), array("X-Auth-Token: $ostoken"));
+        }
+        return $this->get("cs/remote_content/swift", array(
+            "surl" => joinURLs($surl),
+            "projectid" => joinURLs($osprojectid),
+        ));
+    }
 
     public function jobs($dlg_id = null,
                          $fields = null,
@@ -109,14 +121,14 @@ class FTS3Client {
     }
 
 
-    private function get($path, $data = null) {
+    private function get($path, $data = null, $headers = array()) {
         if ($data != null) {
             $path = $path . "?" . http_build_query($data);
         }
 
         error_log("cURL: GET $this->base_url/$path");
 
-        $c = $this->curl_init($path);
+        $c = $this->curl_init($path, $headers);
         return $this->curl_exec($c);
     }
 
@@ -131,7 +143,8 @@ class FTS3Client {
     private function curl_init($path, $headers = array()) {
         $url = $this->base_url . '/' . $path;
         $c = curl_init($url);
-        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0); 
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
         if (isset($this->access_token)) {
             curl_setopt($c, CURLOPT_HTTPHEADER,
