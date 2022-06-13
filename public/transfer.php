@@ -163,6 +163,14 @@ $( document ).ready(function() {
 	  }
 	}
 
+    if(sessionStorage.projectIdLeft) {
+        $('#exampleProjectId1').val(sessionStorage.projectIdLeft)
+    }
+
+    if(sessionStorage.projectIdRight) {
+        $('#exampleProjectId2').val(sessionStorage.projectIdRight)
+    }
+
 	//$('#leftStorageLogin').hide();
 
 	checkCSState('leftStorageSelect', 'leftStorageContent', 'leftCSLoginForm', 'leftLoginIndicator', 'leftStorageLogin', 'leftEndpointContent', 'leftEndpointContentTable', 'left-loading-indicator', 'left-ep-text', 'leftEpFilter', 'leftEndpoint', 'leftCSName');	
@@ -246,6 +254,13 @@ function setSEpath() {
 
 }
 
+function setProjectId(){
+    if (typeof(Storage)!=="undefined") {
+        sessionStorage.projectIdLeft = $('#exampleProjectId1').val();
+        sessionStorage.projectIdRight = $('#exampleProjectId2').val();
+    }
+}
+
 function saveCheckboxState() {
 	if (typeof(Storage)!=="undefined") {
 		sessionStorage.checksum = Boolean($('#checksum').prop('checked'));
@@ -287,7 +302,7 @@ $('#checksum').popover();
 				echo "<input type=\"hidden\" id=\"clientCERT\" value=\"$v\">";
 		}
 	?>
-         <legend> 
+         <legend>
 	 </legend>
 	<div class="alert alert-danger" id="serverkeyAlert"
 		style="display: none">
@@ -344,7 +359,8 @@ $('#checksum').popover();
 				<form>
 					<div class="form-group" id="left_project_id">
 						<label for="exampleProjectId1">OS Project ID</label>
-						<input type="text" class="form-control" id="exampleProjectId1" placeholder="Enter OS Project ID">
+						<input type="text" class="form-control" id="exampleProjectId1" placeholder="Enter OS Project ID"
+                               onchange="setProjectId()">
 					</div>
 					<div class="form-group" id="left_os_token">
 						<label for="leftOSToken">OS Token</label>
@@ -373,7 +389,7 @@ $('#checksum').popover();
 						<div class="btn-toolbar" id="dmtoolbarleft">
 							<div class="btn-group">
                                                                 <button type="button"  id="createFolderLeft" class="btn btn-sm"
-                                                                        onclick="showDataManagementModal('create',$('#leftEndpoint').val(), 'left','leftEndpointContentTable')">Create 
+                                                                        onclick="showDataManagementModal('create',$('#leftEndpoint').val(), 'left','leftEndpointContentTable')">Create
                                                                         Folder</button>
                                                         </div>
 							<div class="btn-group">
@@ -604,7 +620,8 @@ $('#checksum').popover();
                 <form>
                     <div class="form-group" id="right_project_id">
                         <label for="exampleProjectId2">OS Project ID</label>
-                        <input type="text" class="form-control" id="exampleProjectId2" placeholder="Enter OS Project ID">
+                        <input type="text" class="form-control" id="exampleProjectId2" placeholder="Enter OS Project ID"
+                               onchange="setProjectId()">
                     </div>
                     <div class="form-group" id="right_os_token">
                         <label for="leftOSToken">OS Token</label>

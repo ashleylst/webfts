@@ -25,6 +25,8 @@ $oidc = $_SESSION['oidc'];
 
 $oidc->addScope('openid');
 $oidc->addScope('offline_access');
+$oidc->addScope('email');
+$oidc->addScope('uid');
 //TODO find a better way to add token-exchange for helmhoz AAI
 if ($provider['issuer'] == 'https://login.helmholtz.de/oauth2') {
     $oidc->addScope('token-exchange');
@@ -41,11 +43,13 @@ if ($provider['issuer'] != 'https://login.helmholtz.de/oauth2') {
 }
 
 try {
+    $oidc->setRedirectURL('http://localhost:2345/public/login.php');
+    $oidc->addAuthParam(array('prompt' => 'consent'));
     $oidc->authenticate();  // This (might) redirect to IDP
     $oidc->requestClientCredentialsToken();
 
     // TODO Dynamic return location
-    header("Location: /index.php");
+    header("Location: /public/index.php");
 }
 catch (OpenIDConnectClientException $e) {
     // TODO This message might reveal sensitive information
