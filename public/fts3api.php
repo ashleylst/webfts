@@ -20,7 +20,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     case 'POST':
     case 'DELETE':
-        if ($_SERVER['CONTENT_TYPE'] === 'application/json') {
+        if (array_key_exists('CONTENT_TYPE', $_SERVER) && $_SERVER['CONTENT_TYPE'] === 'application/json') {
             $INPUT = json_decode(file_get_contents('php://input'), true);
         } else {
             $INPUT = $_POST;
@@ -103,6 +103,7 @@ try {
                     $result = $fts->submit_job($data);
                     break;
                 case 'DELETE':
+                    $result = $fts->delete_job($_SERVER['HTTP_JOBID']);
                     break;
                 default:
                     $error = 405;

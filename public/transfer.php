@@ -1,4 +1,4 @@
-<link href="/site-tour/introJs/introjs.css" rel="stylesheet">
+<link href="site-tour/introJs/introjs.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/site-tour-styles/custom-site-tour.css">
 
 <script>
@@ -802,8 +802,8 @@ $('#checksum').popover();
 	</div>		
 </div>	
 
-<script type="text/javascript" src="/site-tour/introJs/intro.js"></script>
-<script type="text/javascript" src="/js/site-tourTransfer.js"></script>
+<script type="text/javascript" src="site-tour/introJs/intro.js"></script>
+<script type="text/javascript" src="js/site-tourTransfer.js"></script>
 
 <script type="text/javascript">
     if (RegExp('multipage', 'gi').test(window.location.search)) {

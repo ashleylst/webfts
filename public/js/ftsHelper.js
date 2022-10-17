@@ -74,14 +74,15 @@ function getJobTranfers(jobId, isResubmit, overwrite, compare_checksum,resubmitA
 }
 
 function removeTransfer(jobID){
-  var urlEndp = "/api/fts3/jobs"
+  var urlEndp = "/api/fts3/job?job_id=" + jobID
   $.support.cors = true;
   $.ajax({
     url : urlEndp,
       type : "DELETE",
-    dataType:'script',
-      data: { 'function': 'job', 'job_id': jobID },
-    type : "POST",
+      dataType: "json",
+      headers: {
+        "jobID": jobID
+      },
     xhrFields : {
       withCredentials : true
     },

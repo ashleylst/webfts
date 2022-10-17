@@ -6,7 +6,7 @@ $password = $_POST["password"];
 $projectId = $_POST["project_id"];
 $storageName = $_POST["storage_name"];
 
-$output = exec("python ../include/generate_os_token.py $password $username $projectId");
+$output = exec("python3 ../include/generate_os_token.py $password $username $projectId");
 echo json_encode($output);
 
 //header("Location: /public/submit.php");
